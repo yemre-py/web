@@ -1,0 +1,28 @@
+package com.web.enums;
+
+public enum BookGenre {
+    FICTION,
+    FANTASY,
+    SCIENCE_FICTION,
+    MYSTERY,
+    THRILLER,
+    ROMANCE,
+    HISTORICAL_FICTION,
+    HORROR,
+    ADVENTURE,
+    LITERARY_FICTION,
+    NON_FICTION,
+    BIOGRAPHY,
+    AUTOBIOGRAPHY,
+    MEMOIR,
+    SELF_HELP,
+    HISTORY,
+    SCIENCE,
+    TRAVEL,
+    TRUE_CRIME,
+    POETRY,
+    DRAMA,
+    CHILDREN,
+    YOUNG_ADULT,
+    GRAPHIC_NOVEL;
+}
