@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>movie</title>
+</head>
+<body>
+<div class="container">
+    <form th:action="@{/movies}" th:object="${movie}" method="post">
+        <label for="title">Başlık:</label>
+        <input type="text" id="title" th:field="*{title}" required />
+        <div th:errorclass="error" th:errors="*{title}"></div>
+
+        <label for="description">Açıklama:</label>
+        <textarea id="description" th:field="*{description}" required></textarea>
+        <div th:errorclass="error" th:errors="*{description}"></div>
+
+        <label for="year">Yıl:</label>
+        <input type="number" id="year" th:field="*{year}" required />
+        <div th:errorclass="error" th:errors="*{year}"></div>
+
+        <label for="director">Yönetmen:</label>
+        <input type="text" id="director" th:field="*{director}" required />
+        <div th:errorclass="error" th:errors="*{director}"></div>
+
+        <label for="actors">Aktörler:</label>
+        <input type="text" id="actors" th:field="*{actors}" required />
+        <div th:errorclass="error" th:errors="*{actors}"></div>
+
+        <label for="genre">Tür:</label>
+        <select id="genre" th:field="*{genre}" required>
+            <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre}"></option>
+        </select>
+        <div th:errorclass="error" th:errors="*{genre}"></div>
+
+        <button type="submit">Kaydet</button>
+    </form>
+</div>
+</body>
+</html>

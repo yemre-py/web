@@ -1,5 +1,5 @@
 package com.web.enums;
 
-public enum Status {
+public enum TodoStatus {
     TODO, PROGRESS, FINISHED;
 }
