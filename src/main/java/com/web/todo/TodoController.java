@@ -25,29 +25,36 @@ public class TodoController {
     @GetMapping("/todos")
     public String todos(Model model) {
         Map<TodoStatus, List<Todo>> groupedStatus = todoService.findAllByStatus();
-        System.out.println(groupedStatus);
         model.addAttribute("groupedStatus", groupedStatus);
-        return "show-todos";
+
+        if (!model.containsAttribute("todo")) {
+            model.addAttribute("todo", new Todo());
+        }
+        model.addAttribute("status", TodoStatus.values());
+        return "todos";
     }
 
-    @PostMapping("/todos/new")
+    @PostMapping("/todos")
     public String add(@ModelAttribute @Valid Todo todo, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.todo", bindingResult);
             redirectAttributes.addFlashAttribute("todo", todo);
-            return "redirect:/todos/new";
+            return "redirect:/todos";
         }
         todoService.save(todo);
         redirectAttributes.addFlashAttribute("msg", "Todo added successfully");
         return "redirect:/todos";
     }
 
-    @GetMapping("/todos/new")
-    public String newTodo(Model model) {
-        if (!model.containsAttribute("todo")) {
-            model.addAttribute("todo", new Todo());
+    @PostMapping("/todos/edit")
+    public String edit(@ModelAttribute @Valid Todo todo, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.todo", bindingResult);
+            redirectAttributes.addFlashAttribute("todo", todo);
+            return "redirect:/todos";
         }
-        model.addAttribute("status", TodoStatus.values());
-        return "add-todos";
+        todoService.update(todo);
+        redirectAttributes.addFlashAttribute("msg", "Todo edited successfully");
+        return "redirect:/todos";
     }
 }

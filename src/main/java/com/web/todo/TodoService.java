@@ -36,4 +36,16 @@ public class TodoService {
         List<Todo> todos = todoRepository.findAll();
         return todos.stream().collect(Collectors.groupingBy(Todo::getStatus));
     }
+
+    public void update(Todo todo) {
+        Todo existingTodo = todoRepository.findById(todo.getId()).orElseThrow(
+                () -> new IllegalArgumentException("Todo not found")
+        );
+
+        existingTodo.setTitle(todo.getTitle());
+        existingTodo.setDescription(todo.getDescription());
+        existingTodo.setStatus(todo.getStatus());
+
+        todoRepository.save(existingTodo);
+    }
 }
