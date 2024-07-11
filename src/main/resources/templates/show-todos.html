@@ -1,15 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>todos</title>
+    <title>Todos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/todos.css">
 </head>
 <body>
-<div th:each="entry : ${groupedStatus}">
-    <h2 th:text="${entry.key}"></h2>
-    <ul>
-        <li th:each="todo:${entry.value}" th:text="${todo.description}"></li>
-    </ul>
+<div class="container">
+    <!-- TODO -->
+    <div class="section">
+        <div class="todos" id="todo" th:each="todo : ${groupedStatus[T(com.web.enums.TodoStatus).TODO]}">
+            <i class="pencil fa-solid fa-pencil"></i>
+            <div class="header">
+                <div class="title" th:text="${todo.title}">Title</div>
+                <div class="created-date" th:text="${#dates.format(todo.createdOn, 'yyyy-MM-dd')}">Creation Date</div>
+            </div>
+            <div class="body">
+                <div class="desc" th:text="${todo.description}">Description</div>
+            </div>
+            <div class="footer">
+                <div class="updateOn" th:text="${#dates.format(todo.updatedOn, 'yyyy-MM-dd')}">Updated On</div>
+                <div class="status" th:text="${todo.status}">Status</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="section">
+        <div class="todos" id="progress" th:each="todo : ${groupedStatus[T(com.web.enums.TodoStatus).PROGRESS]}">
+            <div class="header">
+                <div class="title" th:text="${todo.title}">Title</div>
+                <div class="created-date" th:text="${#dates.format(todo.createdOn, 'yyyy-MM-dd')}">Creation Date</div>
+            </div>
+            <div class="body">
+                <div class="desc" th:text="${todo.description}">Description</div>
+            </div>
+            <div class="footer">
+                <div class="updateOn" th:text="${#dates.format(todo.updatedOn, 'yyyy-MM-dd')}">Updated On</div>
+                <div class="status" th:text="${todo.status}">Status</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FINISHED -->
+    <div class="section">
+        <div class="todos" id="finished" th:each="todo : ${groupedStatus[T(com.web.enums.TodoStatus).FINISHED]}">
+            <div class="header">
+                <div class="title" th:text="${todo.title}">Title</div>
+                <div class="created-date" th:text="${#dates.format(todo.createdOn, 'yyyy-MM-dd')}">Creation Date</div>
+            </div>
+            <div class="body">
+                <div class="desc" th:text="${todo.description}">Description</div>
+            </div>
+            <div class="footer">
+                <div class="updateOn" th:text="${#dates.format(todo.updatedOn, 'yyyy-MM-dd')}">Updated On</div>
+                <div class="status" th:text="${todo.status}">Status</div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script src="/js/pencil.js"></script>
 </body>
 </html>

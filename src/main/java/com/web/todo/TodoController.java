@@ -25,6 +25,7 @@ public class TodoController {
     @GetMapping("/todos")
     public String todos(Model model) {
         Map<TodoStatus, List<Todo>> groupedStatus = todoService.findAllByStatus();
+        System.out.println(groupedStatus);
         model.addAttribute("groupedStatus", groupedStatus);
         return "show-todos";
     }
