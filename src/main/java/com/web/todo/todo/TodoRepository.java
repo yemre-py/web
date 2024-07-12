@@ -1,4 +1,4 @@
-package com.web.todo;
+package com.web.todo.todo;
 
 import com.web.enums.TodoStatus;
 import org.springframework.data.jpa.repository.JpaRepository;

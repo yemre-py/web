@@ -53,9 +53,39 @@ window.onclick = function (event) {
     if (event.target == editModal) {
         editModal.style.display = "none";
     }
+    if (event.target == updatesModal) {
+        updatesModal.style.display = "none";
+    }
 }
 
 // Show the add modal
 btn.onclick = function () {
     modal.style.display = "block";
+}
+
+
+const updatesModal = document.getElementById('updatesModal');
+const closeUpdates = document.getElementsByClassName("close-updates")[0];
+const updateDatesList = document.getElementById('updateDatesList');
+
+todos.forEach(todo => {
+    todo.addEventListener('click', function() {
+        fetch(`/api/todos/${todo.dataset.id}/updates`)
+            .then(response => response.json())
+            .then(data => {
+                updateDatesList.innerHTML = ''; // Clear previous entries
+                data.forEach(date => {
+                    const li = document.createElement('li');
+                    li.textContent = new Date(date).toLocaleDateString();
+                    updateDatesList.appendChild(li);
+                });
+                updatesModal.style.display = 'block'; // Display the modal
+            })
+            .catch(error => console.error('Error fetching update dates:', error));
+    });
+});
+
+// Close the updates modal
+closeUpdates.onclick = function() {
+    updatesModal.style.display = "none";
 }
